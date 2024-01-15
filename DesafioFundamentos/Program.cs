@@ -1,59 +1,87 @@
-﻿using DesafioFundamentos.Models;
+﻿using System.Collections;
+using DesafioFundamentos.Models;
 
-// Coloca o encoding para UTF8 para exibir acentuação
 Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-decimal precoInicial = 0;
-decimal precoPorHora = 0;
+decimal precoInicial = 0, precoPorHora = 0;
 
-Console.WriteLine("Seja bem vindo ao sistema de estacionamento!\n" +
-                  "Digite o preço inicial:");
-precoInicial = Convert.ToDecimal(Console.ReadLine());
+Console.WriteLine("Seja bem vindo ao Sistema de Estacionamento!");
+precoInicial = LerDecimalComTratamento("Digite a taxa fixa:");
+precoPorHora = LerDecimalComTratamento("Digite o preço a ser cobrado por hora:");
 
-Console.WriteLine("Agora digite o preço por hora:");
-precoPorHora = Convert.ToDecimal(Console.ReadLine());
-
-// Instancia a classe Estacionamento, já com os valores obtidos anteriormente
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
 
-string opcao = string.Empty;
 bool exibirMenu = true;
-
-// Realiza o loop do menu
 while (exibirMenu)
 {
     Console.Clear();
-    Console.WriteLine("Digite a sua opção:");
-    Console.WriteLine("1 - Cadastrar veículo");
-    Console.WriteLine("2 - Remover veículo");
-    Console.WriteLine("3 - Listar veículos");
-    Console.WriteLine("4 - Encerrar");
+    string menuTexto = "Digite a sua opção no menu:\n" +
+                        "1 - Cadastrar veículo\n" +
+                        "2 - Remover veículo\n" +
+                        "3 - Lista de veículos estacionados\n" +
+                        "4 - Encerrar programa";
+    Console.WriteLine(menuTexto);
+    string opcao = Console.ReadLine();
 
-    switch (Console.ReadLine())
+    switch (opcao)
     {
         case "1":
-            es.AdicionarVeiculo();
+            es.CadastrarVeiculoComTratamento();
             break;
 
         case "2":
-            es.RemoverVeiculo();
+            es.RemoverVeiculoComTratamento();
             break;
 
         case "3":
-            es.ListarVeiculos();
+            es.ListaDeVeiculos();
             break;
 
         case "4":
-            exibirMenu = false;
+            Console.WriteLine("Você deseja realmente encerrar o programa? Se 'Sim', digite 'S', se 'Não', digite qualquer tecla");
+            string tecla = Console.ReadLine().ToUpper();
+            if (tecla == "S")
+            {
+                exibirMenu = false;
+            }
+            else
+            {
+                exibirMenu = true;
+            }
             break;
 
         default:
             Console.WriteLine("Opção inválida");
             break;
     }
+}
+Console.WriteLine("O programa foi encerrado!");
 
-    Console.WriteLine("Pressione uma tecla para continuar");
-    Console.ReadLine();
+
+//Tratamento de exceçoes -----------------------------------
+
+static decimal LerDecimalComTratamento(string mensagem)
+{
+    Console.WriteLine(mensagem);
+    try
+    {
+        return Convert.ToDecimal(Console.ReadLine());
+    }
+    catch (FormatException)
+    {
+        Console.WriteLine("Erro de formato. Certifique-se de inserir um número válido.");
+        return LerDecimalComTratamento(mensagem);
+    }
+    catch (OverflowException)
+    {
+        Console.WriteLine("O valor inserido é muito grande. Tente novamente.");
+        return LerDecimalComTratamento(mensagem);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ocorreu um erro ao ler: {ex.Message}");
+        return LerDecimalComTratamento(mensagem);
+    }
 }
 
-Console.WriteLine("O programa se encerrou");
+
