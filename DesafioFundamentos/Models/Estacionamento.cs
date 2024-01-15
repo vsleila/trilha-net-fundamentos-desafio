@@ -28,11 +28,13 @@ namespace DesafioFundamentos.Models
                     Console.WriteLine($"Veículo de {placa} cadastrado com sucesso!\n" +
                     "Tecle 'enter' para voltar ao menu de opções.");
                     Console.ReadLine();
+                    Console.Clear();
                 }
                 else
                 {
                     Console.WriteLine("A placa do veículo está incorreta, tente novamente.");
                     Console.ReadLine();
+                    Console.Clear();
                 }
             }
             catch (Exception ex)
@@ -61,6 +63,7 @@ namespace DesafioFundamentos.Models
                         Console.WriteLine($"O veículo {placa.ToUpper()} foi removido e o preço total foi de: R$ {valorTotal} reais.\n" +
                         "Tecle 'enter' para voltar ao menu principal.");
                         Console.ReadLine();
+                        Console.Clear();
                     }
                     else
                     {
@@ -71,12 +74,15 @@ namespace DesafioFundamentos.Models
                 catch (Exception ex)
                 {
                     Console.WriteLine($"Ocorreu um erro ao remover o veículo: {ex.Message}");
+                    Console.ReadLine();
+                    Console.Clear();
                 }
             }
             else
             {
                 Console.WriteLine("Não há veículos para remover!");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
 
@@ -92,11 +98,13 @@ namespace DesafioFundamentos.Models
                     Console.WriteLine(veiculo);
                 }
                 Console.ReadLine();
+                Console.Clear();
             }
             else
             {
                 Console.WriteLine("Não há veículos estacionados.");
                 Console.ReadLine();
+                Console.Clear();
             }
         }
     }

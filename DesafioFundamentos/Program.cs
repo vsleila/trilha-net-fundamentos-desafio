@@ -10,19 +10,19 @@ precoInicial = LerDecimalComTratamento("Digite a taxa fixa:");
 precoPorHora = LerDecimalComTratamento("Digite o preço a ser cobrado por hora:");
 
 Estacionamento es = new Estacionamento(precoInicial, precoPorHora);
+Console.Clear();
 
 bool exibirMenu = true;
 while (exibirMenu)
 {
-    Console.Clear();
     string menuTexto = "Digite a sua opção no menu:\n" +
                         "1 - Cadastrar veículo\n" +
                         "2 - Remover veículo\n" +
                         "3 - Lista de veículos estacionados\n" +
                         "4 - Encerrar programa";
     Console.WriteLine(menuTexto);
-    string opcao = Console.ReadLine();
 
+    string opcao = Console.ReadLine();
     switch (opcao)
     {
         case "1":
@@ -43,19 +43,23 @@ while (exibirMenu)
             if (tecla == "S")
             {
                 exibirMenu = false;
+                Console.WriteLine("O programa foi encerrado!");
+                break;
             }
             else
             {
+                Console.Clear();
                 exibirMenu = true;
             }
             break;
 
         default:
-            Console.WriteLine("Opção inválida");
+            Console.WriteLine("Opção inválida!");
+            Console.ReadLine();
+            Console.Clear();
             break;
     }
 }
-Console.WriteLine("O programa foi encerrado!");
 
 
 //Tratamento de exceçoes -----------------------------------
